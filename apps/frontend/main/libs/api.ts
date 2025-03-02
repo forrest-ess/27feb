@@ -3,7 +3,8 @@ import axios from 'axios';
 const api = axios.create({
   baseURL:
     // 'https://mc-isaac-conviction-submitted.trycloudflare.com/api',
-    'http://localhost:9000/api',
+    // 'http://localhost:9000/api',
+    'https://common-api.daataa.dev',
 });
 
 export const registerUser = async (user: {
