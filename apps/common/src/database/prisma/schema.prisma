@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://forrest:forrest@localhost:5432/27feb?schema=public"
+}
+
+model knex_migrations {
+  id             Int       @id @default(autoincrement())
+  name           String?   @db.VarChar(255)
+  batch          Int?
+  migration_time DateTime? @db.Timestamptz(6)
+}
+
+model knex_migrations_lock {
+  index     Int  @id @default(autoincrement())
+  is_locked Int?
+}
+
+model users {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email      String   @unique(map: "users_email_unique") @db.VarChar(255)
+  password   String   @db.VarChar(255)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+  orders     orders[]
+}
+
+model order_detail {
+  id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  order_id      String   @db.Uuid
+  product_id    String   @db.Uuid
+  product_price Float    @db.Real
+  orders        orders   @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "order_detail_order_id_foreign")
+  products      products @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "order_detail_product_id_foreign")
+}
+
+model orders {
+  id           String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id      String            @db.Uuid
+  order_status order_status_enum @default(pending)
+  total_amount Float             @db.Real
+  created_at   DateTime          @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime          @default(now()) @db.Timestamptz(6)
+  order_detail order_detail[]
+  users        users             @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_user_id_foreign")
+}
+
+model product_category {
+  id            String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  category_name String     @unique(map: "product_category_category_name_unique") @db.VarChar(255)
+  products      products[]
+}
+
+model products {
+  id               String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  product_name     String           @unique(map: "products_product_name_unique") @db.VarChar(255)
+  category_id      String           @db.Uuid
+  product_price    Float            @db.Real
+  stock_quantity   Int
+  order_detail     order_detail[]
+  product_category product_category @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "products_category_id_foreign")
+}
+
+enum order_status_enum {
+  pending
+  processing
+  completed
+  cancelled
+}

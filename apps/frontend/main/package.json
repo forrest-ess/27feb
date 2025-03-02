@@ -1,0 +1,15 @@
+{
+  "name": "@27feb/main",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "frontend-main",
+    "projectType": "application",
+    "sourceRoot": "apps/frontend/main"
+  },
+  "dependencies": {
+    "next": "~15.1.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  }
+}

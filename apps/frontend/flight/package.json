@@ -1,0 +1,15 @@
+{
+  "name": "@27feb/flight",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "frontend-flight",
+    "projectType": "application",
+    "sourceRoot": "apps/frontend/flight"
+  },
+  "dependencies": {
+    "next": "~15.1.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  }
+}

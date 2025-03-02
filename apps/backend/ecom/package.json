@@ -1,0 +1,50 @@
+{
+  "dependencies": {
+    "@nestjs/mapped-types": "*"
+  },
+  "name": "@27feb/ecom",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "backend-ecom",
+    "projectType": "application",
+    "sourceRoot": "apps/backend/ecom/src",
+    "targets": {
+      "build": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "webpack-cli build",
+          "args": [
+            "node-env=production"
+          ]
+        },
+        "configurations": {
+          "development": {
+            "args": [
+              "node-env=development"
+            ]
+          }
+        }
+      },
+      "serve": {
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "ecom:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "ecom:build:development"
+          },
+          "production": {
+            "buildTarget": "ecom:build:production"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/common-e2e"
+    },
+    {
+      "path": "./apps/common"
+    },
+    {
+      "path": "./apps/frontend/ecom"
+    },
+    {
+      "path": "./apps/frontend/crypto"
+    },
+    {
+      "path": "./apps/frontend/hotel"
+    },
+    {
+      "path": "./apps/frontend/flight"
+    },
+    {
+      "path": "./apps/backend/crypto-e2e"
+    },
+    {
+      "path": "./apps/backend/crypto"
+    },
+    {
+      "path": "./apps/backend/ecom-e2e"
+    },
+    {
+      "path": "./apps/backend/ecom"
+    },
+    {
+      "path": "./apps/backend/flight-e2e"
+    },
+    {
+      "path": "./apps/backend/flight"
+    },
+    {
+      "path": "./apps/backend/hotel-e2e"
+    },
+    {
+      "path": "./apps/backend/hotel"
+    },
+    {
+      "path": "./apps/frontend/main"
+    }
+  ]
+}
